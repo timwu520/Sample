@@ -6,16 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.myapplication.adapter.viewholder.StoreListViewHolder;
-import com.example.myapplication.util.OnItemClickListener;
 import com.example.myapplication.R;
-import com.example.myapplication.data.PavilionData;
+import com.example.myapplication.adapter.viewholder.PlantListViewHolder;
+import com.example.myapplication.data.Plant;
+import com.example.myapplication.util.OnItemClickListener;
 
-public class StoreListAdapter extends BaseRecyclerViewAdapter<PavilionData> {
+public class PlantListAdapter extends BaseRecyclerViewAdapter<Plant> {
 
     private OnItemClickListener mOnItemClickListener;
 
-    public StoreListAdapter(OnItemClickListener itemClickListener) {
+    public PlantListAdapter(OnItemClickListener itemClickListener) {
         mOnItemClickListener = itemClickListener;
     }
 
@@ -23,14 +23,14 @@ public class StoreListAdapter extends BaseRecyclerViewAdapter<PavilionData> {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        View view = inflater.inflate(R.layout.item_store_list, viewGroup, false);
-        return new StoreListViewHolder(view, mOnItemClickListener);
+        View view = inflater.inflate(R.layout.item_plant_list, viewGroup, false);
+        return new PlantListViewHolder(view, mOnItemClickListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-        if (viewHolder instanceof StoreListViewHolder){
-            StoreListViewHolder listViewHolder = (StoreListViewHolder) viewHolder;
+        if (viewHolder instanceof PlantListViewHolder){
+            PlantListViewHolder listViewHolder = (PlantListViewHolder) viewHolder;
             listViewHolder.bindView(getData(i));
         }
     }

@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public abstract class BaseFragment<T> extends Fragment {
+import com.example.myapplication.util.IUpdateUi;
+
+public abstract class BaseFragment<T> extends Fragment implements IUpdateUi {
 
     private T mPresenter;
     protected View mMainLayout;
@@ -20,11 +22,16 @@ public abstract class BaseFragment<T> extends Fragment {
         return view;
     }
 
+    @Override
+    public void UpdateUi(int updateUiReason, Object data) {
+
+    }
+
     protected int getLayout() {
         return 0;
     }
 
-    protected T getPresetner() {
+    protected T getPresenter() {
         return mPresenter;
     }
 
