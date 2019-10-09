@@ -3,6 +3,7 @@ package com.example.myapplication.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -11,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.myapplication.BaseFragmentActivity;
+import com.example.myapplication.PlantDetailActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.PlantListAdapter;
 import com.example.myapplication.data.PavilionData;
@@ -96,6 +99,11 @@ public class DetailFragment extends BaseFragment<DetailPresenter> {
         if (null != arguments) {
             PavilionData data = (PavilionData) arguments.getSerializable(BundleKey.KEY_PAVILION_DATA);
             getPresenter().getBundleData(data);
+
+            if (null != data) {
+                String name = data.getName();
+                setTitle(name);
+            }
         }
     }
 
@@ -123,10 +131,20 @@ public class DetailFragment extends BaseFragment<DetailPresenter> {
         }
     }
 
+    private void setTitle(String title) {
+        FragmentActivity activity = getActivity();
+        if (null != activity) {
+            ((BaseFragmentActivity) activity).setToolbarTitle(title);
+        }
+    }
+
     private final OnItemClickListener mOnItemClickListener = new OnItemClickListener() {
         @Override
         public void onItemClick(Object object) {
-
+            if (object instanceof Plant) {
+                Plant plant = (Plant) object;
+                PlantDetailActivity.start(getContext(), plant);
+            }
         }
     };
 }

@@ -2,4 +2,8 @@
     <string name="app_name">My Application</string>
 
     <string name="title_main">台北市立動物園</string>
+    <string name="alias">別名</string>
+    <string name="introduction">簡介</string>
+    <string name="identification_method">辨認方式</string>
+    <string name="feature">功能性</string>
 </resources>

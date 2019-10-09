@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.myapplication.BaseFragmentActivity;
 import com.example.myapplication.util.IUpdateUi;
 
 public abstract class BaseFragment<T> extends Fragment implements IUpdateUi {
@@ -27,6 +29,14 @@ public abstract class BaseFragment<T> extends Fragment implements IUpdateUi {
 
     }
 
+
+    protected void showPageTitle(String title) {
+        FragmentActivity activity = getActivity();
+        if (null != activity) {
+            ((BaseFragmentActivity) activity).setToolbarTitle(title);
+        }
+    }
+
     protected int getLayout() {
         return 0;
     }
@@ -35,7 +45,7 @@ public abstract class BaseFragment<T> extends Fragment implements IUpdateUi {
         return mPresenter;
     }
 
-    protected void initPresenter(T presenter){
+    protected void initPresenter(T presenter) {
         mPresenter = presenter;
     }
 }

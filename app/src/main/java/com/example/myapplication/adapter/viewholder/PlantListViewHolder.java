@@ -23,6 +23,8 @@ public class PlantListViewHolder extends RecyclerView.ViewHolder {
     private TextView mTextContent;
     private Context mContext;
 
+    private Plant mPlant;
+
     public PlantListViewHolder(View itemView, OnItemClickListener onItemClickListener) {
         super(itemView);
         mContext = itemView.getContext();
@@ -34,10 +36,12 @@ public class PlantListViewHolder extends RecyclerView.ViewHolder {
         mImgIcon = itemView.findViewById(R.id.img_icon);
         mTextContent = itemView.findViewById(R.id.text_content);
         mTextName = itemView.findViewById(R.id.text_name);
+        itemView.setOnClickListener(mOnClickListener);
     }
 
     public void bindView(Plant plant) {
         if (null != plant) {
+            mPlant = plant;
             String picUrl = plant.getPicUrl();
             String content = plant.getAlsoKnown();
             String name = plant.getChineseName();
@@ -72,4 +76,13 @@ public class PlantListViewHolder extends RecyclerView.ViewHolder {
             }
         }
     }
+
+    private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (null != mOnItemClickListener) {
+                mOnItemClickListener.onItemClick(mPlant);
+            }
+        }
+    };
 }

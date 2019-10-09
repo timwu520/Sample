@@ -22,6 +22,9 @@
 
         <activity android:name=".PavilionDetailActivity"
             android:screenOrientation="portrait"/>
+
+        <activity android:name=".PlantDetailActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

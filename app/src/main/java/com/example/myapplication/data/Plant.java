@@ -2,7 +2,9 @@ package com.example.myapplication.data;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Plant {
+import java.io.Serializable;
+
+public class Plant implements Serializable {
 
     @SerializedName("F_Name_Latin")
     private String F_Name_Latin;
@@ -48,6 +50,8 @@ public class Plant {
     private Object F_Voice03_URL;
     private Object F_Update;
     private int _id;
+    @SerializedName("F_Function＆Application")
+    private String Function;
 
 
     public String getLocation() {
@@ -80,6 +84,10 @@ public class Plant {
 
     public String getGenus() {
         return Genus;
+    }
+
+    public String getFunction() {
+        return Function;
     }
 
     public String getPicUrl() {

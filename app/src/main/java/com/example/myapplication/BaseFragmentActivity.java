@@ -16,6 +16,12 @@ public abstract class BaseFragmentActivity extends FragmentActivity {
     private Toolbar mToolbar;
     private TextView mToolbarTitle;
 
+    public void setToolbarTitle(String title) {
+        if (null != mToolbarTitle) {
+            mToolbarTitle.setText(title);
+        }
+    }
+
     protected void switchFragment(Fragment fragment) {
         switchFragment(fragment, null);
     }
@@ -50,7 +56,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity {
         }
     }
 
-    protected int getLayout(){
+    protected int getLayout() {
         return 0;
     }
 
