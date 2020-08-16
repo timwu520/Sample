@@ -54,6 +54,7 @@ public class ApiManager {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 //do nothing here.
+                Log.e(TAG, "onFailure:" + call + e);
             }
 
             @Override
