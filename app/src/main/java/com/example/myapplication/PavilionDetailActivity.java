@@ -3,7 +3,8 @@ package com.example.myapplication;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 
 import com.example.myapplication.data.PavilionData;
 import com.example.myapplication.fragment.DetailFragment;

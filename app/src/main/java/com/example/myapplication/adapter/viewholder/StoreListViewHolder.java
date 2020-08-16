@@ -1,17 +1,17 @@
 package com.example.myapplication.adapter.viewholder;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
-import com.example.myapplication.util.OnItemClickListener;
 import com.example.myapplication.R;
 import com.example.myapplication.data.PavilionData;
+import com.example.myapplication.util.OnItemClickListener;
 
 public class StoreListViewHolder extends RecyclerView.ViewHolder {
 
@@ -24,7 +24,7 @@ public class StoreListViewHolder extends RecyclerView.ViewHolder {
 
     private OnItemClickListener mOnItemClickListener;
 
-    public StoreListViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener) {
+    public StoreListViewHolder(View itemView, OnItemClickListener onItemClickListener) {
         super(itemView);
         mOnItemClickListener = onItemClickListener;
         mContext = itemView.getContext();

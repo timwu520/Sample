@@ -3,11 +3,10 @@ package com.example.myapplication;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 
-import com.example.myapplication.data.PavilionData;
+import androidx.annotation.Nullable;
+
 import com.example.myapplication.data.Plant;
-import com.example.myapplication.fragment.DetailFragment;
 import com.example.myapplication.fragment.PlantDetailFragment;
 import com.example.myapplication.util.BundleKey;
 

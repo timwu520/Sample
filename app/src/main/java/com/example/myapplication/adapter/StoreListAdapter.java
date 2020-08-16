@@ -1,15 +1,16 @@
 package com.example.myapplication.adapter;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.myapplication.adapter.viewholder.StoreListViewHolder;
-import com.example.myapplication.util.OnItemClickListener;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.myapplication.R;
+import com.example.myapplication.adapter.viewholder.StoreListViewHolder;
 import com.example.myapplication.data.PavilionData;
+import com.example.myapplication.util.OnItemClickListener;
 
 public class StoreListAdapter extends BaseRecyclerViewAdapter<PavilionData> {
 
