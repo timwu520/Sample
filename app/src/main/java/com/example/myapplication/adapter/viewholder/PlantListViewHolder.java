@@ -41,6 +41,7 @@ public class PlantListViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bindView(Plant plant) {
+        Log.w("bindView", "bindView");
         if (null != plant) {
             mPlant = plant;
             String picUrl = plant.getPicUrl();

@@ -3,11 +3,12 @@ package com.example.myapplication.api;
 import android.util.Log;
 
 import com.example.myapplication.data.PavilionResponse;
-import com.example.myapplication.data.PlantData;
 import com.example.myapplication.data.PlantResponse;
 import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -47,48 +48,69 @@ public class ApiManager {
         }
     }
 
-    private void sendGetPavilionInformation(final OnResponseListener onResponseListener){
-        ApiRequest request = new ApiRequest();
-        request.setUrl(ApiUrl.GET_PAVILION_INFORMATION);
-        request.setCallBack(new Callback() {
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                //do nothing here.
-                Log.e(TAG, "onFailure:" + call + e);
-            }
+    private void sendGetPavilionInformation(final OnResponseListener onResponseListener) {
+        try {
+            ApiRequest request = new ApiRequest();
+            request.setUrl(ApiUrl.GET_PAVILION_INFORMATION);
+            request.setCallBack(new Callback() {
+                @Override
+                public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                    //do nothing here.
+                    Log.e(TAG, "onFailure:" + call + e);
+                }
 
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                String result = response.body().string();
-                Log.i(TAG, result);
-                Gson gson = new Gson();
-                PavilionResponse pavilionResponse = gson.fromJson(result, PavilionResponse.class);
-                onResponseListener.onResponse(pavilionResponse);
-            }
-        });
-        request.excute();
+                @Override
+                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                    String result = response.body().string();
+                    Log.i(TAG, result);
+                    try {
+                        JSONObject quizObject = new JSONObject(result);
+                        result = quizObject.get("result").toString();
+                        Gson gson = new Gson();
+                        PavilionResponse pavilionResponse = gson.fromJson(result, PavilionResponse.class);
+                        onResponseListener.onResponse(pavilionResponse);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            request.excute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    private void sendGetPlantInformation(String queryName, final OnResponseListener onResponseListener){
-        ApiRequest request = new ApiRequest();
-        String url = ApiUrl.createQueryData.getUrl(ApiUrl.GET_PLANT_INFORMATION, queryName);
-        request.setUrl(url);
-        request.setCallBack(new Callback() {
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                //do nothing here.
-            }
+    private void sendGetPlantInformation(String queryName, final OnResponseListener onResponseListener) {
+        try {
+            ApiRequest request = new ApiRequest();
+            String url = ApiUrl.createQueryData.getUrl(ApiUrl.GET_PLANT_INFORMATION, queryName);
+            request.setUrl(url);
+            request.setCallBack(new Callback() {
+                @Override
+                public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                    //do nothing here.
+                }
 
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                String result = response.body().string();
-                Log.i(TAG, result);
-                Gson gson = new Gson();
-                PlantResponse plantResponse = gson.fromJson(result, PlantResponse.class);
-                onResponseListener.onResponse(plantResponse);
-            }
-        });
-        request.excute();
+                @Override
+                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                    String result = response.body().string();
+                    Log.i(TAG, result);
+                    try {
+                        JSONObject quizObject = new JSONObject(result);
+                        result = quizObject.get("result").toString();
+                        Gson gson = new Gson();
+                        PlantResponse plantResponse = gson.fromJson(result, PlantResponse.class);
+                        onResponseListener.onResponse(plantResponse);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            });
+            request.excute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public interface OnResponseListener{

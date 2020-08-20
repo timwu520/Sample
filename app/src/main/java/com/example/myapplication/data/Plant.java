@@ -10,7 +10,9 @@ public class Plant implements Serializable {
     private String F_Name_Latin;
     @SerializedName("F_Location")
     private String Location;
+    @SerializedName("rank")
     private double rank;
+    @SerializedName("F_Summary")
     private String F_Summary;
     @SerializedName("F_Pic01_URL")
     private String PicUrl;

@@ -1,9 +1,9 @@
 package com.example.myapplication.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
-import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -15,9 +15,12 @@ import com.example.myapplication.R;
 import com.example.myapplication.adapter.StoreListAdapter;
 import com.example.myapplication.data.PavilionData;
 import com.example.myapplication.data.PavilionResponse;
+import com.example.myapplication.data.Result;
 import com.example.myapplication.presenter.MainPresenter;
 import com.example.myapplication.util.OnItemClickListener;
 import com.example.myapplication.util.UpdateUiReason;
+
+import java.util.List;
 
 public class MainFragment extends BaseFragment<MainPresenter> {
 
@@ -47,10 +50,28 @@ public class MainFragment extends BaseFragment<MainPresenter> {
         getPresenter().getPavilionInfo();
     }
 
-    @MainThread
+    private final OnItemClickListener mOnItemClickListener = new OnItemClickListener() {
+        @Override
+        public void onItemClick(Object object) {
+            if (!isAdded()) {
+                return;
+            }
+
+            if (object instanceof PavilionData) {
+                PavilionData data = (PavilionData) object;
+                PavilionDetailActivity.start(getContext(), data);
+            }
+        }
+    };
+
+    @Override
+    protected int getLayout() {
+        return R.layout.fragment_main;
+    }
+
     @Override
     public void UpdateUi(int updateUiReason, Object data) {
-        switch (updateUiReason){
+        switch (updateUiReason) {
             case UpdateUiReason.SHOW_HOME_DATA:
                 final PavilionResponse response = (PavilionResponse) data;
                 syncData(response);
@@ -58,13 +79,8 @@ public class MainFragment extends BaseFragment<MainPresenter> {
         }
     }
 
-    @Override
-    protected int getLayout() {
-        return R.layout.fragment_main;
-    }
-
-    private void initUI(){
-        mRecyclerView  = mMainLayout.findViewById(R.id.recycler_view);
+    private void initUI() {
+        mRecyclerView = mMainLayout.findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mStoreListAdapter = new StoreListAdapter(mOnItemClickListener);
         mRecyclerView.setAdapter(mStoreListAdapter);
@@ -76,24 +92,18 @@ public class MainFragment extends BaseFragment<MainPresenter> {
                 @Override
                 public void run() {
                     if (null != mStoreListAdapter) {
-                        mStoreListAdapter.setData(response.getResult().getResults());
+                        Log.w("syncData", "syncData : " + response);
+                        Result result = response.getResult();
+                        Log.w("syncData", "result　: " + result);
+                        if (null != result) {
+                            List<PavilionData> results = result.getResults();
+                            Log.w("syncData", "results　: " + results);
+                            Log.w("syncData", "syncData");
+                            mStoreListAdapter.setData(results);
+                        }
                     }
                 }
             });
         }
     }
-
-    private final OnItemClickListener mOnItemClickListener = new OnItemClickListener() {
-        @Override
-        public void onItemClick(Object object) {
-            if (!isAdded()){
-                return;
-            }
-
-            if (object instanceof PavilionData){
-                PavilionData data = (PavilionData) object;
-                PavilionDetailActivity.start(getContext(), data);
-            }
-        }
-    };
 }

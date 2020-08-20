@@ -1,5 +1,7 @@
 package com.example.myapplication.adapter;
 
+import android.util.Log;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -10,6 +12,7 @@ public abstract class BaseRecyclerViewAdapter<Data> extends RecyclerView.Adapter
     private List<Data> mData = new ArrayList<>();
 
     public void setData(List<Data> list){
+        Log.w("setData", "setData");
         mData.clear();
         mData = list;
         notifyDataSetChanged();
