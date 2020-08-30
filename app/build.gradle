@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 android {
     signingConfigs {
         release {
@@ -14,8 +15,8 @@ android {
         applicationId 'com.tim.taipeizoo'
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 2
-        versionName '1.0.1'
+        versionCode 1
+        versionName '1.0.0'
         signingConfig signingConfigs.release
     }
     buildTypes {
@@ -34,11 +35,14 @@ android {
 dependencies {
     def CONSTRAINT_VERSION = "1.1.3"
     def SUPPORT_LIB_VERSION = "1.0.0"
-
+    implementation "androidx.core:core-ktx:1.0.1"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "androidx.appcompat:appcompat:${SUPPORT_LIB_VERSION}"
     implementation "androidx.recyclerview:recyclerview:${SUPPORT_LIB_VERSION}"
+    implementation "androidx.recyclerview:recyclerview:${SUPPORT_LIB_VERSION}"
     implementation "com.google.android.material:material:${SUPPORT_LIB_VERSION}"
+    implementation 'com.google.android.play:core:1.8.0'
     implementation "androidx.constraintlayout:constraintlayout:${CONSTRAINT_VERSION}"
     implementation "com.squareup.okhttp3:okhttp:4.2.1"
     implementation 'com.google.code.gson:gson:2.8.5'
