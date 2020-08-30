@@ -24,6 +24,7 @@ class SplashActivity : Activity() {
         val appUpdateManager = AppUpdateManagerFactory.create(this)
         val appUpdateInfoTask = appUpdateManager.appUpdateInfo
         appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
+            Log.i(TAG, "" + appUpdateInfo.updateAvailability())
             when (appUpdateInfo.updateAvailability()) {
                 UpdateAvailability.UPDATE_AVAILABLE -> {
                     if (appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
@@ -35,8 +36,18 @@ class SplashActivity : Activity() {
                                 }.setNegativeButton("不要") { dialog, _ ->
                                     dialog.dismiss()
                                 }
+                        build.show()
                     } else if (appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
                         //非強制性更新
+                        val build = AlertDialog.Builder(this)
+                        build.setTitle("更新 FLEXIBLE").setMessage("有更新喔")
+                                .setPositiveButton("OK") { dialog, _ ->
+                                    dialog.dismiss()
+                                    appUpdateManager.startUpdateFlowForResult(appUpdateInfo, AppUpdateType.FLEXIBLE, this, 1001)
+                                }.setNegativeButton("不要") { dialog, _ ->
+                                    dialog.dismiss()
+                                }
+                        build.show()
                     }
                 }
                 UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS -> {
@@ -52,7 +63,7 @@ class SplashActivity : Activity() {
         }
 
         appUpdateInfoTask.addOnFailureListener { e: Exception? ->
-            Log.e("TAG", e.toString())
+            Log.e(TAG, e.toString())
         }
         appUpdateManager.registerListener { state ->
             Log.i(TAG, "state $state")
